@@ -1,4 +1,3 @@
-var config = require(__dirname+'/config.js');
 var r = require(__dirname+'/../lib')({pool: false});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
@@ -8,7 +7,7 @@ var It = util.It;
 
 var connection; // global connection
 var dbName;
-
+/*
 It("Testing `run` without connection", function* (done) {
     try {
         r.expr(1).run()
@@ -38,11 +37,11 @@ It("Testing `run` with connection", function* (done) {
         }
     }
 })
-
+*/
 
 It("Init for `cursor.js`", function* (done) {
     try {
-        connection = yield r.connect(config);
+        connection = yield r.connect({});
         assert(connection);
 
         dbName = uuid();
@@ -78,7 +77,7 @@ It("`run` should use the default database", function* (done) {
 
         result = yield connection.close();
 
-        connection = yield r.connect({db: dbName, host: config.host, port: config.port, authKey: config.authKey});
+        connection = yield r.connect({db: dbName});
         assert(connection);
 
         result = yield r.tableList().run(connection);
@@ -167,7 +166,7 @@ It("`reconnect` should work with options", function* (done) {
         done(e);
     }
 })
-
+/*
 
 It("`noReplyWait` should throw", function* (done) {
     try{
@@ -192,7 +191,7 @@ It("`noreplyWait` should work", function* (done) {
         done(e);
     }
 })
-
+*/
 
 
  
@@ -200,7 +199,7 @@ It("`run` should take an argument", function* (done) {
     try {
         result = yield connection.close();
         assert(connection);
-        connection = yield r.connect(config);
+        connection = yield r.connect({});
         assert(connection);
 
         var result = yield r.expr(1).run(connection, {useOutdated: true});
@@ -211,11 +210,11 @@ It("`run` should take an argument", function* (done) {
 
         result = yield r.expr(1).run(connection, {profile: false});
         assert.equal(result, 1);
-
+        /*
         result = yield r.expr(1).run(connection, {profile: true});
         assert(result.profile);
         assert.equal(result.result, 1);
-
+    */
         result = yield r.expr(1).run(connection, {durability: "soft"});
         assert.equal(result, 1);
 
@@ -228,7 +227,7 @@ It("`run` should take an argument", function* (done) {
         done(e);
     }
 })
-
+/*
 It("`run` should throw on an unrecongized argument", function* (done) {
     try {
         var result = yield r.expr(1).run(connection, {db: "db"});
@@ -242,7 +241,7 @@ It("`run` should throw on an unrecongized argument", function* (done) {
         }
     }
 })
-
+*/
 
 It("`r()` should be a shortcut for r.expr()", function* (done) {
     try {
@@ -254,7 +253,7 @@ It("`r()` should be a shortcut for r.expr()", function* (done) {
         done(e);
     }
 })
-
+/*
 It("`timeFormat` should work", function* (done) {
     try {
         var result = yield r.now().run(connection);
@@ -410,3 +409,4 @@ It("Test error message when running a query on a closed connection", function* (
         }
     }
 })
+*/

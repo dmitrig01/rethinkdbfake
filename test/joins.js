@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -89,7 +88,7 @@ It("`innerJoin` should throw if no sequence", function* (done) {
         result = yield r.db(dbName).table(tableName).innerJoin().run();
     }
     catch(e) {
-        if (e.message === "`innerJoin` takes 2 arguments, 0 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`innerJoin` takes 2 arguments, 0 provided.") {
             done();
         }
         else {
@@ -102,7 +101,7 @@ It("`innerJoin` should throw if no predicate", function* (done) {
         result = yield r.db(dbName).table(tableName).innerJoin(r.expr([1,2,3])).run();
     }
     catch(e) {
-        if (e.message === "`innerJoin` takes 2 arguments, 1 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`innerJoin` takes 2 arguments, 1 provided.") {
             done();
         }
         else {
@@ -185,7 +184,7 @@ It("`outerJoin` should throw if no sequence", function* (done) {
         result = yield r.db(dbName).table(tableName).outerJoin().run();
     }
     catch(e) {
-        if (e.message === "`outerJoin` takes 2 arguments, 0 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`outerJoin` takes 2 arguments, 0 provided.") {
             done();
         }
         else {
@@ -198,7 +197,7 @@ It("`outerJoin` should throw if no predicate", function* (done) {
         result = yield r.db(dbName).table(tableName).outerJoin(r.expr([1,2,3])).run();
     }
     catch(e) {
-        if (e.message === "`outerJoin` takes 2 arguments, 1 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`outerJoin` takes 2 arguments, 1 provided.") {
             done();
         }
         else {
@@ -268,7 +267,7 @@ It("`eqJoin` should throw if no argument", function* (done) {
         result = yield r.db(dbName).table(tableName).eqJoin().run();
     }
     catch(e) {
-        if (e.message === "`eqJoin` takes at least 2 arguments, 0 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`eqJoin` takes at least 2 arguments, 0 provided.") {
             done();
         }
         else {
@@ -276,6 +275,7 @@ It("`eqJoin` should throw if no argument", function* (done) {
         }
     }
 })
+/*
 It("`eqJoin` should throw with a non valid key", function* (done) {
     try {
         result = yield r.expr([1,2,3]).eqJoin(r.row, r.db(dbName).table(tableName), {nonValidKey: "val"}).run();
@@ -317,7 +317,7 @@ It("`eqJoin` should throw if too many arguments", function* (done) {
     }
 })
 
-
+*/
 
 It("`zip` should zip stuff", function* (done) {
     try {

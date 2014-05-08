@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -118,6 +117,7 @@ It("`insert` should work - with durability hard`", function* (done) {
         done(e);
     }
 })
+/*
 It("`insert` should work - testing upsert true`", function* (done) {
     try {
         var result = yield r.db(dbName).table(tableName).insert({}, {upsert: true}).run();
@@ -159,6 +159,7 @@ It("`insert` should throw if no argument is given", function* (done) {
         }
     }
 })
+*/
 It("`insert` work with dates - 1", function* (done) {
     try {
         result = yield r.db(dbName).table(tableName).insert({name: "Michel", age: 27, birthdate: new Date()}).run()
@@ -208,6 +209,7 @@ It("`insert` work with dates - 4", function* (done) {
     }
 })
 
+/*
 It("`insert` should throw if non valid option", function* (done) {
     try{
         result = yield r.db(dbName).table(tableName).insert({}, {nonValidKey: true}).run();
@@ -247,7 +249,7 @@ It("`replace` should throw if non valid option", function* (done) {
         }
     }
 })
-
+*/
 It("`delete` should work`", function* (done) {
     try {
         var result = yield r.db(dbName).table(tableName).delete().run();
@@ -312,6 +314,7 @@ It("`delete` should work -- hard durability`", function* (done) {
         done(e);
     }
 })
+/*
 It("`delete` should throw if non valid option", function* (done) {
     try{
         result = yield r.db(dbName).table(tableName).delete({nonValidKey: true}).run();
@@ -325,6 +328,7 @@ It("`delete` should throw if non valid option", function* (done) {
         }
     }
 })
+*/
 It("`update` should work - point update`", function* (done) {
     try {
         var result = yield r.db(dbName).table(tableName).delete().run();
@@ -447,6 +451,7 @@ It("`update` should work - returnVals false`", function* (done) {
         done(e);
     }
 })
+/*
 It("`update` should throw if no argument is given", function* (done) {
     try{
         result = yield r.db(dbName).table(tableName).update().run();
@@ -473,7 +478,7 @@ It("`update` should throw if non valid option", function* (done) {
         }
     }
 })
-
+*/
 It("`replace` should work - point replace`", function* (done) {
     try {
         var result = yield r.db(dbName).table(tableName).delete().run();

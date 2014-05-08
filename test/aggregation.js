@@ -1,8 +1,7 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
-
+var _ = require('lodash');
 var uuid = util.uuid;
 var It = util.It;
 
@@ -43,7 +42,7 @@ It("`reduce` should throw if no argument has been passed", function* (done) {
         result = yield r.db(dbName).table(tableName).reduce().run();
     }
     catch(e) {
-        if (e.message === "`reduce` takes 1 argument, 0 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`reduce` takes 1 argument, 0 provided.") {
             done()
         }
         else {
@@ -82,7 +81,7 @@ It("`group` should work ", function* (done) {
         result = yield r.expr([{name: "Michel", grownUp: true},{name: "Laurent", grownUp: true},
             {name: "Sophie", grownUp: true},{name: "Luke", grownUp: false},{name: "Mino", grownUp: false}]).group('grownUp').run();
         result = yield result.toArray();
-        result.sort();
+        result = _.sortBy(result, 'grownUp').reverse();
 
         assert.deepEqual(result, [ { "group": false, "reduction": [ { "grownUp": false, "name": "Luke" }, { "grownUp": false, "name": "Mino" } ] }, { "group": true, "reduction": [ { "grownUp": true, "name": "Michel" }, { "grownUp": true, "name": "Laurent" }, { "grownUp": true, "name": "Sophie" } ] } ])
 
@@ -92,6 +91,7 @@ It("`group` should work ", function* (done) {
         done(e);
     }
 })
+/*
 It("`groupFormat` should work -- with raw", function* (done) {
     try {
         result = yield r.expr([{name: "Michel", grownUp: true},{name: "Laurent", grownUp: true},
@@ -105,14 +105,14 @@ It("`groupFormat` should work -- with raw", function* (done) {
         done(e);
     }
 })
-
+*/
 
 It("`ungroup` should work ", function* (done) {
     try {
         result = yield r.expr([{name: "Michel", grownUp: true},{name: "Laurent", grownUp: true},
             {name: "Sophie", grownUp: true},{name: "Luke", grownUp: false},{name: "Mino", grownUp: false}]).group('grownUp').ungroup().run();
         result = yield result.toArray();
-        result.sort();
+        result = _.sortBy(result, 'grownUp').reverse();
 
         assert.deepEqual(result, [ { "group": false, "reduction": [ { "grownUp": false, "name": "Luke" }, { "grownUp": false, "name": "Mino" } ] }, { "group": true, "reduction": [ { "grownUp": true, "name": "Michel" }, { "grownUp": true, "name": "Laurent" }, { "grownUp": true, "name": "Sophie" } ] } ])
 
@@ -157,7 +157,7 @@ It("`contains` should throw if called without arguments", function* (done) {
         result = yield r.db(dbName).table(tableName).contains().run();
     }
     catch(e) {
-        if (e.message === "`contains` takes at least 1 argument, 0 provided after:\nr.db(\""+dbName+"\").table(\""+tableName+"\")") {
+        if (e.message === "`contains` takes at least 1 argument, 0 provided.") {
             done()
         }
         else {
@@ -183,7 +183,7 @@ It("`sum` should throw if called with arguments", function* (done) {
         result = yield r.expr([1,2,3]).sum(1).run();
     }
     catch(e) {
-        if (e.message === "`sum` takes 0 argument, 1 provided after:\nr.expr([1, 2, 3])") {
+        if (e.message === "`sum` takes 0 argument, 1 provided.") {
             done()
         }
         else {
@@ -209,7 +209,7 @@ It("`avg` should throw if called with arguments", function* (done) {
         result = yield r.expr([1,2,3]).avg(1).run();
     }
     catch(e) {
-        if (e.message === "`avg` takes 0 argument, 1 provided after:\nr.expr([1, 2, 3])") {
+        if (e.message === "`avg` takes 0 argument, 1 provided.") {
             done()
         }
         else {
@@ -235,7 +235,7 @@ It("`min` should throw if called with arguments", function* (done) {
         result = yield r.expr([1,2,3]).min(1).run();
     }
     catch(e) {
-        if (e.message === "`min` takes 0 argument, 1 provided after:\nr.expr([1, 2, 3])") {
+        if (e.message === "`min` takes 0 argument, 1 provided.") {
             done()
         }
         else {
@@ -261,7 +261,7 @@ It("`max` should throw if called with arguments", function* (done) {
         result = yield r.expr([1,2,3]).max(1).run();
     }
     catch(e) {
-        if (e.message === "`max` takes 0 argument, 1 provided after:\nr.expr([1, 2, 3])") {
+        if (e.message === "`max` takes 0 argument, 1 provided.") {
             done()
         }
         else {

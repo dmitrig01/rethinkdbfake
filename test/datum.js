@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -46,7 +45,7 @@ It("`expr` is not defined after a term", function* (done) {
         var result = yield r.expr(1).expr("foo").run();
     }
     catch(e) {
-        if (e.message === "`expr` is not defined after:\nr.expr(1)") {
+        if (e.message.match(/^`expr` is not defined/)) {
             done()
         }
         else {
@@ -54,6 +53,7 @@ It("`expr` is not defined after a term", function* (done) {
         }
     }
 })
+/*
 It("`r.exprJSON` should work", function* (done) {
     try {
         assert(r.exprJSON([{}, {}])._self.type === "JSON");
@@ -189,7 +189,7 @@ It("`r.expr` should work when setNestingLevel set back the value to 100", functi
         done(e);
     }
 })
-
+*/
 
 
 

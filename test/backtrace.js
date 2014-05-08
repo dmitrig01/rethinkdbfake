@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -8,7 +7,7 @@ var It = util.It;
 
 var uuid = util.uuid;
 var dbName, tableName;
-
+/*
 It("Init for backtraces", function* (done) {
     try {
         dbName = uuid();
@@ -41,7 +40,7 @@ It("Init for backtraces", function* (done) {
  * We still keep tests for all the terms to be sure that at least, we properly print them.
  *
  ************
- */
+ * /
 
 /*
 Frames:
@@ -51,7 +50,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.dbDrop(1)
          ^ 
-*/
+* /
 It('Test backtrace for r.dbDrop(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -77,7 +76,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.dbCreate(1)
            ^ 
-*/
+* /
 It('Test backtrace for r.dbCreate(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -106,7 +105,7 @@ r.dbList().do(function(var_1) {
     return var_1.add("a")
            ^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.dbList().do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -136,7 +135,7 @@ r.expr(2).do(function(var_1) {
     return var_1.add("a")
            ^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.expr(2).do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -163,7 +162,7 @@ Error:
 Table `551f695a834f94e0fe215e19441b01c9` already exists. in:
 r.db("7debc6e4a249569a1a6280fd6e871270").tableCreate("551f695a834f94e0fe215e19441b01c9")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).tableCreate(tableName)', function* (done) {
     try {
         r.nextVarId=1;
@@ -190,7 +189,7 @@ Error:
 Table `nonExistingTable` does not exist. in:
 r.db("4ab068e0ed6b05f71dcd4b07034698c4").tableDrop("nonExistingTable")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).tableDrop("nonExistingTable")', function* (done) {
     try {
         r.nextVarId=1;
@@ -220,7 +219,7 @@ r.db("9cdeba73602f74f7ad67f77c76a87528").tableList().do(function(var_1) {
     return var_1.add("a")
            ^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).tableList().do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -250,7 +249,7 @@ r.expr(["zoo", "zoo"]).forEach(function(var_1) {
         .indexCreate(var_1)
         ^^^^^^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.expr(["zoo", "zoo"]).forEach(function(index) { return r.db(dbName).table(tableName).indexCreate(index) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -279,7 +278,7 @@ r.db("91105f3567295643808ed9bab508ec25").table("35adbd4339c2fd4d285f27543e1663ec
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     .indexDrop("nonExistingIndex")
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexDrop("nonExistingIndex")', function* (done) {
     try {
         r.nextVarId=1;
@@ -309,7 +308,7 @@ r.db("7973e432e0aed7e4b1e6951f6049157d").table("37c62a0922bc471c6d751f8f75560cb8
         return var_1.add("a")
                ^^^^^^^^^^^^^^
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexList().do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -339,7 +338,7 @@ r.db("a0d88feb61e3d0743bde45b625e7f237").table("8e1f71fefc1f86b66348c96466951df3
         return var_1.add("a")
                ^^^^^^^^^^^^^^
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexWait().do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -367,7 +366,7 @@ Index `bar` was not found. in:
 r.db("d095569a80834591e8053539e111299a").table("be4967584fdf58b6a5dab0cd633ba046")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     .indexWait("foo", "bar")
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexWait("foo", "bar")', function* (done) {
     try {
         r.nextVarId=1;
@@ -395,7 +394,7 @@ Expected type NUMBER but found STRING. in:
 r.db("340daf900a4168235e5e21e53f8ccdd1").table("9276ce6940b79f4b4f64ab7812532c6e")
     .indexStatus().and(r.expr(1).add("a"))
                        ^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexStatus().and( r.expr(1).add("a"))', function* (done) {
     try {
         r.nextVarId=1;
@@ -425,7 +424,7 @@ r.db("ac3121b4d58dae39ed8b4ccd6828c3fa").table("1ea1431ffa29a51ce3d2fe9cd192a905
     .indexStatus("foo", "bar").do(function(var_1) {
         return var_1.add("a")
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).indexStatus("foo", "bar").do(function(x) { return x.add("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -454,7 +453,7 @@ r.db("d1558f495c0db16e0ef72888be7dc313").table("nonExistingTable").update({
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^         
     foo: "bar"
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").update({foo: "bar"})', function* (done) {
     try {
         r.nextVarId=1;
@@ -483,7 +482,7 @@ r.db("29872a98b692255af6ca560a2f135d11").table("nonExistingTable").update(functi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                         
     return var_1("foo")
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").update(function(doc) { return doc("foo") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -512,7 +511,7 @@ r.db("e7e04bbadd0f0b43f3561b32f2e1b5d6").table("nonExistingTable").replace({
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^          
     foo: "bar"
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").replace({foo: "bar"})', function* (done) {
     try {
         r.nextVarId=1;
@@ -541,7 +540,7 @@ r.db("9ca06265cbe173eeb27decb1baedb031").table("nonExistingTable").replace(funct
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                          
     return var_1("foo")
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").replace(function(doc) { return doc("foo") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -568,7 +567,7 @@ Error:
 Table `nonExistingTable` does not exist. in:
 r.db("0ec51cb31ddf56339cd7acab73b08a2c").table("nonExistingTable").delete()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").delete()', function* (done) {
     try {
         r.nextVarId=1;
@@ -596,7 +595,7 @@ Error:
 Table `nonExistingTable` does not exist. in:
 r.db("a01528b1d8902639d48b9c0adcc397a5").table("nonExistingTable").sync()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable").sync()', function* (done) {
     try {
         r.nextVarId=1;
@@ -622,7 +621,7 @@ Error:
 Database `nonExistingDb` does not exist. in:
 r.db("nonExistingDb").table("nonExistingTable")
 ^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db("nonExistingDb").table("nonExistingTable")', function* (done) {
     try {
         r.nextVarId=1;
@@ -649,7 +648,7 @@ Error:
 Table `nonExistingTable` does not exist. in:
 r.db("d1869ecfd2f2e939f5f9ff18b7293370").table("nonExistingTable")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table("nonExistingTable")', function* (done) {
     try {
         r.nextVarId=1;
@@ -679,7 +678,7 @@ r.db("9a3275b288394920100ca6cd5d9ebc77").table("aaf8fd26eb4093b4bcd1c051acd44b80
         return var_1.add(3)
                ^^^^^^^^^^^^
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).get(1).do(function(x) { return x.add(3) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -710,7 +709,7 @@ r.db("ace4b4876adaeb1bf007a0ec5a37bc1e").table("26d9f7fdddf2e5b519dfecbacb6660be
     ^^^^^^^^^^^^^^^^                     
         return var_1.add(3)
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).getAll(1, 2, 3).do(function(x) { return x.add(3) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -745,7 +744,7 @@ r.db("a236416a22921acdd6caebbb9f13be2c").table("4e6c6a6c34d241bc16ace097d5793e05
     ^^                     
         return var_1.add(3)
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).getAll(1, 2, 3, { index: "foo"}).do(function(x) { return x.add(3) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -780,7 +779,7 @@ r.db("fd389f2f6df7e2722941a066b42ecc2b").table("8602de5384211f5c317968723ab4ca6a
     ^^                     
         return var_1.add(3)
     })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).between(2, 3, { index: "foo"}).do(function(x) { return x.add(3) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -816,7 +815,7 @@ r.db("823bf3d969c6de526a6903b782bbed12").table("83d4ab4bfff59a4c40519d06bb371854
     ^^                     
     return var_1.add(3)
 })
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).filter({foo: "bar"}).do(function(x) { return x.add(3) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -848,7 +847,7 @@ r.expr([1, 2, 3]).innerJoin(function(var_1, var_2) {
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }, r.db("3fdf480de398b8b0c5dee11b4594a38d").table("5f728046b728da8d63ace65a40aca6a6"))
 ^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).innerJoin( function(left, right) { return left.eq(right("bar").add(1)) }, r.db(dbName).table(tableName))', function* (done) {
     try {
         r.nextVarId=1;
@@ -878,7 +877,7 @@ r.expr([1, 2, 3]).innerJoin([1, 2, 3], function(var_1, var_2) {
     return r.expr(1).add("str").add(var_1.eq(var_2("bar").add(1)))
            ^^^^^^^^^^^^^^^^^^^^                                   
 })
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).innerJoin(r.expr([1,2,3]), function(left, right) { return r.expr(1).add("str").add(left.eq(right("bar").add(1))) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -910,7 +909,7 @@ r.expr([1, 2, 3]).outerJoin(function(var_1, var_2) {
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }, r.db("5f21a25338fff022c0f698f8681c03c0").table("1653b107790bf38e48448f3db99ab776"))
 ^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).outerJoin( function(left, right) { return left.eq(right("bar").add(1)) }, r.db(dbName).table(tableName))', function* (done) {
     try {
         r.nextVarId=1;
@@ -938,7 +937,7 @@ Cannot perform get_field on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).eqJoin("id", r.db("5500af7b5c2c94b2672a5f0029512757").table("85bbcc72331aa82bfe0306204997613e"))
                          ^^^^                                                                                     
     .add(1)
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).eqJoin("id", r.db(dbName).table(tableName)).add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -968,7 +967,7 @@ Cannot perform get_field on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).eqJoin("id", r.db("2c1030e5160e4af3bb19923d43fe7d6c").table("8895da1f043cb7443f322ce849d7fced"))
                          ^^^^                                                                                     
     .zip().add(1)
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).eqJoin("id", r.db(dbName).table(tableName)).zip().add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -998,7 +997,7 @@ r.expr([1, 2, 3]).map(function(var_1) {
     ^^^^^^^^^^^^
 }).add(1)
 ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).map(function(v) { return v}).add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1024,7 +1023,7 @@ Error:
 Cannot perform has_fields on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).withFields("foo", "bar").add(1)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).withFields("foo", "bar").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1054,7 +1053,7 @@ r.expr([1, 2, 3]).concatMap(function(var_1) {
     ^^^^^^^^^^^^
 }).add(1)
 ^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).concatMap(function(v) { return v}).add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1081,7 +1080,7 @@ Error:
 Cannot perform get_field on a non-object non-sequence `2`. in:
 r.expr([1, 2, 3]).orderBy("foo").add(1)
                           ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).orderBy("foo").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1108,7 +1107,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).skip("foo").add(1)
                        ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).skip("foo").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1135,7 +1134,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).limit("foo").add(1)
                         ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).limit("foo").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1161,7 +1160,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).slice("foo", "bar").add(1)
                         ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).slice("foo", "bar").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1188,7 +1187,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).nth("bar").add(1)
                       ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).nth("bar").add(1)', function* (done) {
     try {
         r.nextVarId=1;
@@ -1214,7 +1213,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).indexes_of("bar").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).indexesOf("bar").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1241,7 +1240,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.expr([1, 2, 3]).isEmpty().add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).isEmpty().add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1267,7 +1266,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).union([5, 6]).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).union([5,6]).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1294,7 +1293,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).sample("Hello")
                          ^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).sample("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1325,7 +1324,7 @@ r.expr([1, 2, 3]).count(function() {
     ^^^^^^^^^^^
 }).add("Hello")
 ^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).count(function() { return true}).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1352,7 +1351,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).distinct().add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).distinct().add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1379,7 +1378,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.expr([1, 2, 3]).contains("foo", "bar").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).contains("foo", "bar").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1407,7 +1406,7 @@ Expected type SELECTION but found DATUM:
 [1, 2, 3] in:
 r.expr([1, 2, 3]).update(r.row("foo")).add("Hello")
 ^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).update(r.row("foo")).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1434,7 +1433,7 @@ Error:
 Cannot perform pluck on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).pluck("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).pluck("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1461,7 +1460,7 @@ Error:
 Cannot perform without on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).without("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).without("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1488,7 +1487,7 @@ Error:
 Cannot perform merge on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).merge("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).merge("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1515,7 +1514,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).append("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).append("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1542,7 +1541,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).prepend("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).prepend("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1569,7 +1568,7 @@ Error:
 Cannot convert STRING to SEQUENCE in:
 r.expr([1, 2, 3]).difference("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).difference("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1595,7 +1594,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).setInsert("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).setInsert("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1621,7 +1620,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).setUnion("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).setUnion("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1647,7 +1646,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).setIntersection("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).setIntersection("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1673,7 +1672,7 @@ Error:
 Cannot perform get_field on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3])("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3])("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1699,7 +1698,7 @@ Error:
 Cannot perform has_fields on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).hasFields("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).hasFields("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1725,7 +1724,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).insertAt("foo", 2).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).insertAt("foo", 2).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1751,7 +1750,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).spliceAt("foo", 2).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).spliceAt("foo", 2).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1778,7 +1777,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).deleteAt("foo", 2).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).deleteAt("foo", 2).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1805,7 +1804,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).changeAt("foo", 2).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).changeAt("foo", 2).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1831,7 +1830,7 @@ Error:
 Expected type OBJECT but found ARRAY. in:
 r.expr([1, 2, 3]).keys().add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).keys().add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1857,7 +1856,7 @@ Error:
 Expected type STRING but found ARRAY. in:
 r.expr([1, 2, 3]).match("foo").add("Hello")
 ^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).match("foo").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1884,7 +1883,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1911,7 +1910,7 @@ Error:
 Expected type NUMBER but found ARRAY. in:
 r.expr([1, 2, 3]).sub("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).sub("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1937,7 +1936,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3]).mul("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).mul("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1963,7 +1962,7 @@ Error:
 Expected type NUMBER but found ARRAY. in:
 r.expr([1, 2, 3]).div("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).div("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -1990,7 +1989,7 @@ Error:
 Expected type NUMBER but found ARRAY. in:
 r.expr([1, 2, 3]).mod("Hello")
 ^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).mod("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2016,7 +2015,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).and(r.expr("Hello").add(2))
                       ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).and(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2043,7 +2042,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr(false).or(r.expr("Hello").add(2))
                  ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(false).or(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2070,7 +2069,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).eq(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).eq(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2096,7 +2095,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).ne(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).ne(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2122,7 +2121,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).gt(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).gt(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2148,7 +2147,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).lt(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).lt(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2175,7 +2174,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).le(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).le(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2201,7 +2200,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).ge(r.expr("Hello").add(2))
                      ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).ge(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2227,7 +2226,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr([1, 2, 3]).not().add(r.expr("Hello").add(2))
                             ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).not().add(r.expr("Hello").add(2))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2253,7 +2252,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.now().add("Hello")
 ^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2280,7 +2279,7 @@ Error:
 Error in time logic: Year is out of valid range: 1400..10000. in:
 r.time(1023, 11, 3, "Z").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.time(1023, 11, 3, "Z").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2307,7 +2306,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.epochTime(12132131).add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.epochTime(12132131).add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2333,7 +2332,7 @@ Error:
 Invalid date string `UnvalidISO961String` (got `U` but expected a digit). in:
 r.ISO8601("UnvalidISO961String").add("Hello")
           ^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.ISO8601("UnvalidISO961String").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2359,7 +2358,7 @@ Error:
 Timezone `noTimezone` does not start with `-` or `+`. in:
 r.now().inTimezone("noTimezone").add("Hello")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().inTimezone("noTimezone").add("Hello")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2385,7 +2384,7 @@ Error:
 Expected type STRING but found BOOL. in:
 r.now().timezone().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().timezone().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2411,7 +2410,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().during(r.now(), r.now()).add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().during(r.now(), r.now()).add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2437,7 +2436,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().timeOfDay().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().timeOfDay().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2464,7 +2463,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().year().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().year().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2490,7 +2489,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().month().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().month().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2516,7 +2515,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().day().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().day().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2542,7 +2541,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().dayOfWeek().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().dayOfWeek().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2568,7 +2567,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().dayOfYear().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().dayOfYear().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2595,7 +2594,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().hours().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().hours().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2621,7 +2620,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().minutes().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().minutes().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2647,7 +2646,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().seconds().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().seconds().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2673,7 +2672,7 @@ Error:
 Expected type STRING but found BOOL. in:
 r.now().toISO8601().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().toISO8601().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2699,7 +2698,7 @@ Error:
 Expected type NUMBER but found BOOL. in:
 r.now().toEpochTime().add(true)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.now().toEpochTime().add(true)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2731,7 +2730,7 @@ r.expr(1).do(function(var_1) {
     return var_1("bah").add(3)
            ^^^^^              
 })
-*/
+* /
 It('Test backtrace for r.expr(1).do(function(boo) { return boo("bah").add(3); })', function* (done) {
     try {
         r.nextVarId=1;
@@ -2756,7 +2755,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.branch(r.expr(1).add("hello"), "Hello", "World")
          ^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.branch( r.expr(1).add("hello"), "Hello", "World")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2786,7 +2785,7 @@ r.expr(1).forEach(function(var_1) {
     ^^^^^^^^^^^^^^^^^^^
 })
 ^^
-*/
+* /
 It('Test backtrace for r.expr(1).forEach(function(foo) { return foo("bar") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -2813,7 +2812,7 @@ Error:
 foo in:
 r.error("foo")
 ^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.error("foo")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2844,7 +2843,7 @@ r.expr({
     ^^^^
 })("b").default("bar").add(2)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr({a:1})("b").default("bar").add(2)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2874,7 +2873,7 @@ r.expr({
     ^^^^
 }).add(2)
 ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr({a:1}).add(2)', function* (done) {
     try {
         r.nextVarId=1;
@@ -2904,7 +2903,7 @@ r.expr({
     ^^^^
 }).add(r.js("2"))
 ^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr({a:1}).add(r.js("2"))', function* (done) {
     try {
         r.nextVarId=1;
@@ -2930,7 +2929,7 @@ Error:
 Cannot coerce NUMBER to ARRAY. in:
 r.expr(2).coerceTo("ARRAY")
 ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(2).coerceTo("ARRAY")', function* (done) {
     try {
         r.nextVarId=1;
@@ -2956,7 +2955,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr(2).add("foo").typeOf()
 ^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(2).add("foo").typeOf()', function* (done) {
     try {
         r.nextVarId=1;
@@ -2982,7 +2981,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr(2).add("foo").info()
 ^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(2).add("foo").info()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3008,7 +3007,7 @@ Error:
 Failed to parse "foo" as JSON. in:
 r.expr(2).add(r.json("foo"))
               ^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(2).add(r.json("foo"))', function* (done) {
     try {
         r.nextVarId=1;
@@ -3034,7 +3033,7 @@ Error:
 Unrecognized option `nonValid` in `replace` after:
 r.db("791087f7a75b40ba6a89f96cafefa643").table("da63855c1650bdd5e653662750771333")
 Available options are returnVals <bool>, durability <string>, nonAtomic <bool>
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).replace({a:1}, {nonValid:true})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3070,7 +3069,7 @@ r.db("5d7b30df7dbc84066b5d408ae5c83a2e").table("375d7c3c7453e93ff2ed124d468a24cc
         ^^^^^^^^^^^^^^^^^^^
     })
     ^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).replace({a:1}, {durability: "softt"})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3096,7 +3095,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2]).map(r.row.add("eh"))
                    ^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2]).map(r.row.add("eh"))', function* (done) {
     try {
         r.nextVarId=1;
@@ -3148,7 +3147,7 @@ r.table("foo").add(1).add(1).add("hello-super-long-string").add("another-long-st
                 .add("hello-super-long-string").add("another-long-string").add("one-last-string")
         })
     })
-*/
+* /
 It('Test backtrace for r.table("foo").add(1).add(1).add("hello-super-long-string").add("another-long-string").add("one-last-string").map( function(doc) { return r.expr([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).map(function(test) { return test("b").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").mul(test("b")).merge({ firstName: "xxxxxx", lastName: "yyyy", email: "xxxxx@yyyy.com", phone: "xxx-xxx-xxxx" }); }).add(2).map(function(doc) { return doc.add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string").add("hello-super-long-string").add("another-long-string").add("one-last-string") }); })', function* (done) {
     try {
         r.nextVarId=1;
@@ -3178,7 +3177,7 @@ r.expr({
     b: r.expr(1).add("eh")
     ^^^^^^^^^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.expr({a:1, b:r.expr(1).add("eh")})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3214,7 +3213,7 @@ r.db("330a8b0e7ff2501e855f0d45aebe6006").table("80179c85b797f92a3abbb0e40e7b06a3
         ^^^^^^^^^^^^^^^^^^
     }).add(2)
     ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).replace({a:1}, {durability:"soft"}).add(2)', function* (done) {
     try {
         r.nextVarId=1;
@@ -3247,7 +3246,7 @@ r.db("83db41722b445306270f0129b6bcbde0").table("1264cb52a222e32026ce2d67ac27bc23
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     })
     ^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).replace({a:1}, {durability:r.expr(1).add("heloo")})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3280,7 +3279,7 @@ r.db("6dddeb36901f203298878f980598ce0a").table("5510e0388d908dca1fa4a6dbf00c2852
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     })
     ^
-*/
+* /
 It('Test backtrace for r.db(dbName).table(tableName).replace({a:1}, {durability:r.expr(1).add("heloo")})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3310,7 +3309,7 @@ r.expr({
     ^^^^^^^^^^^^^^^^^^^^^^ 
     b: 2
 })
-*/
+* /
 It('Test backtrace for r.expr({a:r.expr(1).add("eh"), b: 2})', function* (done) {
     try {
         r.nextVarId=1;
@@ -3337,7 +3336,7 @@ Error:
 Expected type ARRAY but found STRING. in:
 r.expr([1, 2, 3]).add("eh")
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).add("eh")', function* (done) {
     try {
         r.nextVarId=1;
@@ -3368,7 +3367,7 @@ r.expr({
     ^^^^
 }).add("eh")
 ^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr({a:1}).add("eh")', function* (done) {
     try {
         r.nextVarId=1;
@@ -3395,7 +3394,7 @@ Error:
 Cannot perform get_field on a non-object non-sequence `1`. in:
 r.expr([1, 2, 3]).group("foo")
                         ^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).group("foo")', function* (done) {
     try {
         r.nextVarId=1;
@@ -3421,7 +3420,7 @@ Expected type GROUPED_DATA but found DATUM:
 [1, 2, 3] in:
 r.expr([1, 2, 3]).ungroup()
 ^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3]).ungroup()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3446,7 +3445,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3, "hello"]).sum()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3,"hello"]).sum()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3472,7 +3471,7 @@ Error:
 Expected type NUMBER but found STRING. in:
 r.expr([1, 2, 3, "hello"]).avg()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([1,2,3,"hello"]).avg()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3498,7 +3497,7 @@ Error:
 Cannot take the min of an empty stream.  (If you passed `min` a field name, it may be that no elements of the stream had that field.) in:
 r.expr([]).min()
 ^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([]).min()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3523,7 +3522,7 @@ Error:
 Cannot take the max of an empty stream.  (If you passed `max` a field name, it may be that no elements of the stream had that field.) in:
 r.expr([]).max()
 ^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([]).max()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3548,7 +3547,7 @@ Error:
 Cannot take the average of an empty stream.  (If you passed `avg` a field name, it may be that no elements of the stream had that field.) in:
 r.expr([]).avg()
 ^^^^^^^^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr([]).avg()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3574,7 +3573,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr(1).upcase()
 ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(1).upcase()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3599,7 +3598,7 @@ Error:
 Expected type STRING but found NUMBER. in:
 r.expr(1).downcase()
 ^^^^^^^^^
-*/
+* /
 It('Test backtrace for r.expr(1).downcase()', function* (done) {
     try {
         r.nextVarId=1;
@@ -3628,7 +3627,7 @@ r.expr(1).do(function(var_1) {
     return r.expr(1).object(2)
            ^^^^^^^^^          
 })
-*/
+* /
 It('Test backtrace for r.expr(1).do(function(v) { return r.object(1, 2) })', function* (done) {
     try {
         r.nextVarId=1;
@@ -3656,7 +3655,7 @@ r.expr(1).do(function(var_1) {
     return r.expr("a").object()
            ^^^^^^^^^^^^^^^^^^^^
 })
-*/
+* /
 It('Test backtrace for r.expr(1).do(function(v) { return r.object("a") })', function* (done) {
     try {
         r.nextVarId=1;
@@ -3674,3 +3673,4 @@ It('Test backtrace for r.expr(1).do(function(v) { return r.object("a") })', func
 })
 
 
+*/

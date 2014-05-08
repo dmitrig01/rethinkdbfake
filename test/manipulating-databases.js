@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -64,7 +63,7 @@ It("`dbCreate` is not defined after a term", function* (done) {
         var result = yield r.expr(1).dbCreate("foo").run();
     }
     catch(e) {
-        if (e.message === "`dbCreate` is not defined after:\nr.expr(1)") {
+        if (e.message === "`dbCreate` is not defined.") {
             done()
         }
         else {
@@ -77,7 +76,7 @@ It("`dbCreate` is not defined after a term", function* (done) {
         var result = yield r.expr(1).db("foo").run();
     }
     catch(e) {
-        if (e.message === "`db` is not defined after:\nr.expr(1)") {
+        if (e.message === "`db` is not defined.") {
             done()
         }
         else {
@@ -157,7 +156,7 @@ It("`dbDrop` is not defined after a term", function* (done) {
         var result = yield r.expr(1).dbDrop("foo").run();
     }
     catch(e) {
-        if (e.message === "`dbDrop` is not defined after:\nr.expr(1)") {
+        if (e.message === "`dbDrop` is not defined.") {
             done()
         }
         else {
@@ -170,7 +169,7 @@ It("`dbList` is not defined after a term", function* (done) {
         var result = yield r.expr(1).dbList("foo").run();
     }
     catch(e) {
-        if (e.message === "`dbList` is not defined after:\nr.expr(1)") {
+        if (e.message === "`dbList` is not defined.") {
             done()
         }
         else {

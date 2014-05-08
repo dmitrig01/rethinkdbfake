@@ -1,5 +1,4 @@
-var config = require(__dirname+'/config.js');
-var r = require(__dirname+'/../lib')(config);
+var r = require(__dirname+'/../lib')({});
 var util = require(__dirname+'/util.js');
 var assert = require('assert');
 
@@ -9,7 +8,7 @@ var It = util.It;
 var uuid = util.uuid;
 var dbName, tableName;
 
-
+/*
 It("`match` should work", function* (done) {
     try {
         var result = yield r.expr("hello").match("hello").run()
@@ -33,6 +32,7 @@ It("`match` should throw if no arguement has been passed", function* (done) {
         }
     }
 })
+*/
 It("`upcase` should work", function* (done) {
     try {
         var result = yield r.expr("helLo").upcase().run();
